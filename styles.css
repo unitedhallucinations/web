@@ -157,7 +157,7 @@ nav {
 .burst-layer.cyan { transform: translate(-5px, -4px); }
 .burst-layer.magenta { transform: translate(5px, 4px); }
 
-.redstar { fill: none; stroke: var(--red); stroke-width: 3; mix-blend-mode: multiply; }
+.redstar { fill: var(--red); fill-opacity: .06; stroke: var(--red); stroke-width: 3; mix-blend-mode: multiply; }
 .rays { stroke: var(--ink); stroke-width: 1; mix-blend-mode: multiply; }
 .sacred { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.18; mix-blend-mode: multiply; }
 .sacred2 { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.14; mix-blend-mode: multiply; }
@@ -226,9 +226,11 @@ h1 .ghost.magenta { color: var(--magenta); transform: translate(6px, 5px); z-ind
   letter-spacing: 0.06em;
   text-decoration: none;
   color: var(--paper-hot);
-  background: var(--red);
+  background: var(--ink);
   padding: 15px 34px;
-  border: 1px solid var(--red);
+  border: 1px solid var(--ink);
+  box-shadow: -3px -3px 0 var(--cyan), 3px 3px 0 var(--magenta);
+  text-shadow: -1px 0 var(--cyan), 1px 0 var(--magenta);
   transition: transform 140ms ease;
 }
 .cta:hover { transform: translateY(-2px); }
