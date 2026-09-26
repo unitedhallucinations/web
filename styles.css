@@ -1,0 +1,314 @@
+:root {
+  --paper: #f2ede1;
+  --paper-hot: #fdfdfb;
+  --ink: #141310;
+  --red: #c8102e;
+  --cyan: #00e6f0;
+  --magenta: #ff1bc4;
+  --grey: #b7b5ad;
+  --hairline: color-mix(in srgb, var(--ink) 14%, transparent);
+  --muted: #6b6a64;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* artist pages: same tokens, dark grey end of the palette */
+body.theme-dark {
+  --paper: #242427;
+  --paper-hot: #343439;
+  --ink: #f2ede1;
+  --red: #ff3355;
+  --grey: #6f6d66;
+  --muted: #8a8880;
+}
+
+html { height: 100%; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* the landing page is one fixed screen — no scrolling */
+html:has(body.landing) { overflow: hidden; }
+body.landing {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- grain overlay ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  z-index: 40;
+}
+.theme-dark .grain { mix-blend-mode: screen; opacity: 0.07; }
+
+/* ---------- registration marks (print guides) ---------- */
+.reg {
+  position: fixed;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  z-index: 41;
+  opacity: 0.55;
+}
+.reg svg { width: 100%; height: 100%; display: block; }
+.reg circle { stroke: var(--ink); }
+.reg.tl { top: 18px; left: 18px; }
+.reg.tr { top: 18px; right: 18px; }
+.reg.bl { bottom: calc(18px + env(safe-area-inset-bottom, 0px)); left: 18px; }
+.reg.br { bottom: calc(18px + env(safe-area-inset-bottom, 0px)); right: 18px; }
+
+/* ---------- watermark ---------- */
+.mark {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.mark span { color: var(--red); }
+
+/* ---------- nav ---------- */
+nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 56px 0;
+  padding-top: calc(28px + env(safe-area-inset-top, 0px));
+}
+.enter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 9px 20px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+.enter-btn:hover { background: var(--red); color: var(--paper-hot); border-color: var(--red); }
+.enter-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+/* artist pages keep the watermark pinned while the release list scrolls */
+.artist nav {
+  position: sticky;
+  top: 0;
+  padding-bottom: 22px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* ---------- hero (landing) ---------- */
+.hero {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.burst-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.burst-wrap svg {
+  width: min(96vw, 108vh);
+  height: min(96vw, 108vh);
+  overflow: visible;
+}
+.burst-layer { mix-blend-mode: multiply; }
+.burst-layer.ink circle,
+.burst-layer.ink path { stroke: var(--ink); }
+.burst-layer.cyan circle,
+.burst-layer.cyan path { stroke: var(--cyan); }
+.burst-layer.magenta circle,
+.burst-layer.magenta path { stroke: var(--magenta); }
+.burst-layer path, .burst-layer circle {
+  fill: none;
+  stroke-width: 1.6;
+}
+.burst-layer.cyan { transform: translate(-5px, -4px); }
+.burst-layer.magenta { transform: translate(5px, 4px); }
+
+.redstar { fill: none; stroke: var(--red); stroke-width: 3; mix-blend-mode: multiply; }
+.rays { stroke: var(--ink); stroke-width: 1; mix-blend-mode: multiply; }
+.sacred { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.18; mix-blend-mode: multiply; }
+.sacred2 { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.14; mix-blend-mode: multiply; }
+.spiral { fill: none; stroke-width: 1.2; opacity: 0.1; mix-blend-mode: multiply; }
+.spiral.c { stroke: var(--cyan); }
+.spiral.m { stroke: var(--magenta); }
+
+.halftone { position: absolute; inset: 0; z-index: 2; }
+
+.content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 1100px;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+.title-wrap {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+}
+h1 {
+  margin: 0;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 700;
+  font-size: clamp(2rem, min(10vw, 16vh), 8rem);
+  line-height: 0.94;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  position: relative;
+  z-index: 3;
+}
+h1 .ghost {
+  position: absolute;
+  top: 0; left: 0;
+  right: 0;
+  margin: 0;
+  font: inherit;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+h1 .ghost.cyan { color: var(--cyan); transform: translate(-6px, -5px); }
+h1 .ghost.magenta { color: var(--magenta); transform: translate(6px, 5px); z-index: 2; }
+
+.cta-row {
+  margin-top: clamp(20px, 4vh, 42px);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--paper-hot);
+  background: var(--red);
+  padding: 15px 34px;
+  border: 1px solid var(--red);
+  transition: transform 140ms ease;
+}
+.cta:hover { transform: translateY(-2px); }
+.cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- artist page ---------- */
+.sheet {
+  position: relative;
+  z-index: 10;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 44px 50px 50px;
+  background: var(--paper-hot);
+  border-radius: 0 0 50px 50px;
+}
+.sheet .eyebrow { margin-bottom: 14px; }
+h1.artist-name {
+  position: static;
+  font-size: clamp(1.9rem, min(7vw, 9vh), 4.25rem);
+  line-height: 1;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+.artist-meta {
+  margin: 0 0 30px;
+  padding: 0 0 24px;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.releases { display: flex; flex-direction: column; gap: 10px; }
+.releases iframe {
+  display: block;
+  width: 100%;
+  height: 120px;
+  border: 0;
+  background: transparent;
+}
+.releases iframe.embed--album { max-width: 700px; height: 241px; }
+
+.empty {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+footer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 56px calc(28px + env(safe-area-inset-bottom, 0px));
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  nav { padding: 22px 20px 0; }
+  .artist nav { padding-bottom: 18px; }
+  footer { padding: 0 20px calc(20px + env(safe-area-inset-bottom, 0px)); flex-direction: column; gap: 6px; text-align: center; }
+  h1 .ghost.cyan { transform: translate(-4px, -3px); }
+  h1 .ghost.magenta { transform: translate(4px, 3px); }
+  .sheet { padding: 32px 20px 34px; border-radius: 0 0 32px 32px; }
+}
+
+/* short viewports (landscape phones) — the landing page is fixed height, so keep it inside */
+@media (max-height: 560px) {
+  .hero { padding: 12px; }
+  .eyebrow { margin-bottom: 12px; }
+  h1 { font-size: clamp(1.5rem, 13vh, 3rem); }
+  .cta-row { margin-top: 16px; gap: 10px; }
+  .cta { padding: 9px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

@@ -1,0 +1,38 @@
+:root {
+  --paper: #141310;
+  --paper-hot: #1e1d1a;
+  --ink: #f2ede1;
+  --red: #ff3355;
+  --cyan: #00e6f0;
+  --magenta: #ff1bc4;
+  --grey: #6f6d66;
+
+  --bg: var(--paper);
+  --bg-content: var(--paper-hot);
+  --bg-nav: var(--paper);
+  --border-nav: #2a2823;
+  --text: var(--ink);
+  --accent: var(--red);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}/* colour has a 'u' in it, learn to spell */
+
+content {
+  display: block;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: var(--bg-content);
+  border-radius: 0px 0px 50px 50px;
+}
