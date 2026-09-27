@@ -1,0 +1,11 @@
+{
+  "name": "unitedhallucinations-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The United Hallucinations website.",
+  "scripts": {
+    "sitemap": "node sitemap.js",
+    "metadata": "node metadata.js",
+    "build": "npm run sitemap && npm run metadata"
+  }
+}

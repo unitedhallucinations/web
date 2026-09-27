@@ -1,0 +1,32 @@
+# robots.txt for unitedhallucinations.com
+# https://unitedhallucinations.com/robots.txt
+#
+# The whole site is meant to be indexed. The Disallow rules below are not
+# content choices, they are build leftovers that are still in the repo but are
+# not part of the site.
+
+User-agent: *
+Allow: /
+
+# Dead prototype, superseded by index.html.
+Disallow: /index_old.html
+
+# Duplicate copy of the site from a bad upload. Diverged from the real files,
+# so anything crawling it is reading an out-of-date version.
+Disallow: /files(1)/
+
+# Stray editor and design artefacts, not pages.
+Disallow: /uh.af
+Disallow: /uh.af~lock~
+
+# Linked only from the index, but not content.
+Disallow: /landing.css
+
+# Unused: Document.svg and Untitled_1.svg are byte-identical, and both banners
+# are 975x180 strips that are too thin to serve as social share images.
+Disallow: /Document.svg
+Disallow: /Untitled_1.svg
+Disallow: /banner.png
+Disallow: /banner-2.png
+
+Sitemap: https://unitedhallucinations.com/sitemap.xml
